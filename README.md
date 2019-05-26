@@ -1,14 +1,19 @@
 ### Spring MVC流程
+
 ![Spring MVC流程](https://upload-images.jianshu.io/upload_images/13065313-3a41bc67a2cf8848.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 **步骤**
+
 - 前端控制器DispatcherServlet接收HTTP请求
 - 控制器通过处理器映射器HandlerMapping找到并返回执行链HandlerExecutionChain
 - 控制器调用处理器适配器HandlerAdapter去执行处理器，执行完成后返回ModelAndView给控制器
 - 控制器请求视图解析器去资源定位，视图解析
 - 控制器对视图进行数据渲染
+
 ### 撸一个简单的Spring MVC框架
+
 `定义两个基本注解-@Controller和@RequestMapping`
-```
+
+```java
 package com.bpf.mvc.annotation;
 
 import java.lang.annotation.ElementType;
@@ -24,7 +29,8 @@ import java.lang.annotation.Target;
 public @interface Controller {
 }
 ```
-```
+
+```java
 package com.bpf.mvc.annotation;
 
 import java.lang.annotation.ElementType;
@@ -45,8 +51,10 @@ public @interface RequestMapping {
     String value();
 }
 ```
+
 `定义一个包扫描类`
-```
+
+```java
 package com.bpf.mvc.util;
 
 import java.io.File;
@@ -110,8 +118,10 @@ public class ClassScanner {
     }
 }
 ```
+
 `定义一个DispatcherServlet`
-```
+
+```java
 package com.bpf.mvc;
 
 import com.bpf.mvc.annotation.Controller;
@@ -193,8 +203,10 @@ public class DispatcherServlet extends HttpServlet {
     }
 }
 ```
+
 `测试`
-```
+
+```java
 package com.bpf.mvc.controller;
 
 import com.bpf.mvc.annotation.Controller;
@@ -214,5 +226,7 @@ public class HelloController {
     }
 }
 ```
+
 ### 总结
+
 demo主要实现了通过请求url调用方法的过程，并没有实现视图解析渲染相关操作，有能力者可以自行扩展
